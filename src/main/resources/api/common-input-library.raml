@@ -1,0 +1,11 @@
+#%RAML 1.0 Library
+usage:
+traits:
+  transactionId: !include traits/transactionId-header-trait.raml
+  common-queryParameter: !include traits/query-parameter-trait.raml
+  timezone-query-param: !include traits/timezone-query-param-trait.raml
+
+types:
+  getRoutes-response-dataType: !include datatypes/getRoutes-dataType.raml
+  getSchedules-response-dataType: !include datatypes/getSchedules-dataType.raml
+

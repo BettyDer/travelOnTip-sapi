@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+    
+    <flow name="travelontip-sapi-main">
+        <http:listener config-ref="travelontip-sapi-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="travelontip-sapi-config" />
+    </flow>
+    <flow name="travelontip-sapi-console">
+        <http:listener config-ref="travelontip-sapi-httpListenerConfig" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="travelontip-sapi-config" />
+    </flow>
+	<sub-flow name="Intialise-request-variable-Sub_Flow" doc:id="90965f68-f4d2-400a-86c6-4481932ca203" >
+		<ee:transform doc:name="request variables" doc:id="29b4db5d-6f33-434b-b2ad-1bca6b6fd42f">
+			<ee:variables>
+				<ee:set-variable variableName="transportType"><![CDATA[attributes.uriParams.'transportType']]></ee:set-variable>
+				<ee:set-variable variableName="transportCompany"><![CDATA[attributes.uriParams.'transportCompany']]></ee:set-variable>
+				<ee:set-variable variableName="transactionId"><![CDATA[attributes.headers.transactionId]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+	<flow name="get:\(transportType)\(transportCompany)\schedules:travelontip-sapi-config" doc:id="a8520603-689b-474f-84a8-97dcaed4ea8f" >
+		<flow-ref doc:name="Intialise-request-variable-Sub_Flow" doc:id="26ec8b6c-fb20-4fa2-98c5-ab443ad3ff74" name="Intialise-request-variable-Sub_Flow"/>
+		<logger level="INFO" doc:name="Start Log" doc:id="b2f86985-9a84-4ab9-972b-a7bfc26091f1" message="Request received for schedules for TraveOnTip SAPI For TransactionId #[vars.transactionId]"/>
+		<flow-ref doc:name="getSchedules-Sub_Flow" doc:id="49825e2b-c403-478e-8088-d20e514ccd92" name="travelOnTip-getSchedules-Sub_Flow"/>
+		<logger level="INFO" doc:name="End Log " doc:id="8eecf654-b277-4b99-ad06-6dab9343e29a" message="Response sent for  schedules for TraveOnTip SAPI For TransactionId #[vars.transactionId]"/>
+	</flow>
+	<flow name="get:\(transportType)\(transportCompany)\routes:travelontip-sapi-config" doc:id="2e21a75a-cd8b-4c4f-8cc7-945c937e3e13" >
+		<flow-ref doc:name="Intialise-request-variable-Sub_Flow" doc:id="92e740ea-9739-46b3-b87b-fa47fdb5feb9" name="Intialise-request-variable-Sub_Flow"/>
+		<logger level="INFO" doc:name="Start log" doc:id="64fc9a07-8da3-4dca-a6c9-9a32c1e79a3f" message="Request received for routes for TraveOnTip SAPI For TransactionId #[vars.transactionId]"/>
+		<flow-ref doc:name="getRoutes-Sub_Flow" doc:id="d842bcf5-a4be-4836-9cf5-f91c8fe121a5" name="travelOnTip-getRoutes-Sub_Flow"/>
+		<logger level="INFO" doc:name="End log" doc:id="2ed84ed3-ff07-4b12-98ed-e2f10b71b5b5" message="Response sent for routes for TraveOnTip SAPI For TransactionId #[vars.transactionId]"/>
+	</flow>   
+</mule>

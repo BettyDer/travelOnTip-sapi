@@ -1,0 +1,72 @@
+#%RAML 1.0
+title: travelOnTip-sapi
+description: This API will fetch Routes and Schedules from TravelOnTip System.
+protocols:
+  - HTTPS
+
+uses:
+  common: /common-input-library.raml
+  common-fragments: /exchange_modules/92b9ed79-41c2-49a3-a536-4e499bdd9e36/common-travel-project-fragments/1.0.1/common-travel-project-fragments.raml
+
+/{transportType}:
+  /{transportCompany}:
+    /routes:
+      description: To retrieve route list from FirstCoach. Routes list are usually static and are only updated once a month.
+      get:
+        is: 
+          - common.transactionId
+        responses:
+          200:
+            body:
+              application/json:
+                type: common.getRoutes-response-dataType
+                example: !include /examples/getRoutes-200-response-example.json
+          400:
+            body:
+              application/json:
+                type: common-fragments.error-response-datatype
+                example: !include /exchange_modules/92b9ed79-41c2-49a3-a536-4e499bdd9e36/common-travel-project-fragments/1.0.1/examples/400-response-example.json           
+          404:
+            body:
+              application/json:
+                type: common-fragments.error-response-datatype
+                example: !include /exchange_modules/92b9ed79-41c2-49a3-a536-4e499bdd9e36/common-travel-project-fragments/1.0.1/examples/404-response-example.json
+          500:
+            body:
+              application/json:
+                type: common-fragments.error-response-datatype
+                example: !include /exchange_modules/92b9ed79-41c2-49a3-a536-4e499bdd9e36/common-travel-project-fragments/1.0.1/examples/500-response-example.json
+    /schedules:
+      description: To retrieve schedule list from FirstCoach. Transport Provide based on routes selected.
+      get:
+        is: 
+        - common.transactionId
+        - common.common-queryParameter  
+        responses:
+          200:
+            body:
+              application/json:
+                type: common.getSchedules-response-dataType
+                example: !include /examples/getSchedules-200-response-example.json
+          400:
+            body:
+              application/json:
+                type: common-fragments.error-response-datatype
+                example: !include /exchange_modules/92b9ed79-41c2-49a3-a536-4e499bdd9e36/common-travel-project-fragments/1.0.1/examples/400-response-example.json           
+          404:
+            body:
+              application/json:
+                type: common-fragments.error-response-datatype
+                example: !include /exchange_modules/92b9ed79-41c2-49a3-a536-4e499bdd9e36/common-travel-project-fragments/1.0.1/examples/404-response-example.json
+          500:
+            body:
+              application/json:
+                type: common-fragments.error-response-datatype
+                example: !include /exchange_modules/92b9ed79-41c2-49a3-a536-4e499bdd9e36/common-travel-project-fragments/1.0.1/examples/500-response-example.json
+
+
+
+
+
+
+    

@@ -1,0 +1,15 @@
+#%RAML 1.0 Library
+usage: Provides a collection of common resources, traits and types for use in API Specifications
+
+securitySchemes:
+  BasicAuth:
+    type: Basic Authentication
+    displayName: basic-auth
+    description: This API supports Basic Authentication through standard headers
+
+
+traits:
+  transactionId: !include traits/transactionId-trait.raml
+
+types:
+ error-response-datatype: !include datatypes/error-response-dataType.raml

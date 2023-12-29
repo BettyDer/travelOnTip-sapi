@@ -1,0 +1,26 @@
+[
+  {
+    "avaliableSeats": 20,
+    "departureDateTime": "2020-01-15T16:41:41.090Z",
+    "travelRoutes": {
+      "destinationLocation": {
+        "locationCode": "KLG-MY"
+      },
+      "originLocation": {
+        "locationCode": "BEG-SG"
+      }
+    }
+  },
+  {
+    "avaliableSeats": 30,
+    "departureDateTime": "2020-01-15T16:41:41.090Z",
+    "travelRoutes": {
+      "destinationLocation": {
+        "locationCode": "KLG-MY"
+      },
+      "originLocation": {
+        "locationCode": "BEG-SG"
+      }
+    }
+  }
+]

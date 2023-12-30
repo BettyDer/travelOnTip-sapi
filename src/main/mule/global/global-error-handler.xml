@@ -88,8 +88,38 @@ output application/json
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
-        </error-handler>
-        <error-handler name="APIkit-console-Error_Handler">
+        
+</error-handler>
+        <error-handler name="flow-level-error-handler" doc:id="cc818e5d-36f3-44f5-9cc8-ee3f06715373" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="9f88df00-0f38-49da-9586-c3725975395e" type="HTTP:CONNECTIVITY">
+			<ee:transform doc:name="Transform Message" doc:id="7a0d5fc7-eee6-43b9-8e7d-b1edf759d39a">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"message": "Http connectivity issues"
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="b52c3448-cbcf-445d-8186-66278ade8ae8" type="ANY">
+			<ee:transform doc:name="Transform Message" doc:id="e0efe60d-4a5a-4a1f-9a13-0e1180aead7d">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"message": "critical error"
+}]]></ee:set-payload>
+				</ee:message>
+				<ee:variables>
+					<ee:set-variable variableName="httpStatus"><![CDATA[500]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+		</on-error-propagate>
+	</error-handler>
+	<error-handler name="APIkit-console-Error_Handler">
             <on-error-propagate type="APIKIT:NOT_FOUND">
                 <ee:transform doc:name="Transform Message">
                     <ee:message>

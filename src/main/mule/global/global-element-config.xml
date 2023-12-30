@@ -12,8 +12,9 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
     </http:listener-config>
     <apikit:config name="travelontip-sapi-config" api="travelontip-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
 	<configuration-properties doc:name="Configuration properties" doc:id="f7dbb8a5-8354-478a-8f94-7bce2a327722" file="config\local.yaml" />
-	<http:request-config name="HTTP_Request_configuration-TravelOnTip" doc:name="HTTP Request configuration" doc:id="a8605524-2834-4dbc-a79f-b402d74c82a8">
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="0cebc58d-0ddc-4209-b2ee-5f3836a0590f" >
 		<http:request-connection host="${http.request.host}" port="${http.request.port}" />
 	</http:request-config>
+	<configuration doc:name="Configuration" doc:id="26eb655e-72c0-4004-bece-46a5d4966530" defaultErrorHandler-ref="flow-level-error-handler" />
 	
 </mule>

@@ -7,7 +7,7 @@
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<sub-flow name="travelOnTip-getRoutes-Sub_Flow" doc:id="9130b389-8762-44df-bd35-a0d43af74f60" >
-		<http:request method="GET" doc:name="Request routes" doc:id="5e5fe145-35e9-4ee5-9a47-1808709ae92f" config-ref="HTTP_Request_configuration-TravelOnTip" path="${http.request.routesPath}">
+		<http:request method="GET" doc:name="Request routes" doc:id="5e5fe145-35e9-4ee5-9a47-1808709ae92f" path="/${http.request.path1}" config-ref="HTTP_Request_configuration">
 			<http:headers ><![CDATA[#[output application/java
 ---
 {

@@ -12,6 +12,7 @@
             </http:error-response>
         </http:listener>
         <apikit:router config-ref="travelontip-sapi-config" />
+		<error-handler ref="Globalr-Error_Handler" />
     </flow>
     <flow name="travelontip-sapi-console">
         <http:listener config-ref="travelontip-sapi-httpListenerConfig" path="/console/*">
@@ -24,6 +25,7 @@
             </http:error-response>
         </http:listener>
         <apikit:console config-ref="travelontip-sapi-config" />
+		<error-handler ref="Globalr-Error_Handler" />
     </flow>
 	<sub-flow name="Intialise-request-variable-Sub_Flow" doc:id="90965f68-f4d2-400a-86c6-4481932ca203" >
 		<ee:transform doc:name="request variables" doc:id="29b4db5d-6f33-434b-b2ad-1bca6b6fd42f">

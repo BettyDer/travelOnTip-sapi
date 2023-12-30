@@ -7,7 +7,7 @@
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<sub-flow name="travelOnTip-getSchedules-Sub_Flow" doc:id="bea736ab-3d6d-44aa-8b03-d3c0f0fdfacf" >
-		<http:request method="GET" doc:name="Request schedules" doc:id="f1a890bd-e692-4aa1-8b74-737745647552" config-ref="HTTP_Request_configuration-TravelOnTip" path="${http.request.schedulesPath}">
+		<http:request method="GET" doc:name="Request schedules" doc:id="f1a890bd-e692-4aa1-8b74-737745647552" path="/${http.request.path2}" config-ref="HTTP_Request_configuration">
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
